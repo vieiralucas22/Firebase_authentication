@@ -21,20 +21,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.firebase_authentication.R
+import com.example.firebase_authentication.ui.Routes
 import com.example.firebase_authentication.ui.theme.FirebaseColor
-import com.example.firebase_authentication.ui.theme.FirebaseColor2
 import com.example.firebase_authentication.ui.theme.FirebaseColor3
-import com.example.firebase_authentication.ui.theme.Grey
 import com.example.firebase_authentication.ui.theme.White
-import com.example.firebase_authentication.ui.theme.White2
 
 @Composable
-fun InitialPage()
+fun InitialView(navController : NavController)
 {
     Column(
         modifier = Modifier
@@ -61,7 +59,9 @@ fun InitialPage()
         Spacer(Modifier.height(32.dp))
 
         Button(
-            onClick = {}, modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.buttonColors(
+            onClick = {
+                navController.navigate(Routes.LoginView)
+            }, modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.buttonColors(
                 containerColor = FirebaseColor
             )
         ) {
@@ -69,7 +69,9 @@ fun InitialPage()
         }
 
         OutlinedButton (
-            onClick = {}, modifier = Modifier.fillMaxWidth(), border = BorderStroke(1.dp, FirebaseColor),colors = ButtonDefaults.outlinedButtonColors(
+            onClick = {
+                navController.navigate(Routes.RegisterView)
+            }, modifier = Modifier.fillMaxWidth(), border = BorderStroke(1.dp, FirebaseColor),colors = ButtonDefaults.outlinedButtonColors(
                 containerColor = Color.Transparent,
 
             )
@@ -77,11 +79,4 @@ fun InitialPage()
             Text(text = "Create Account", fontSize = 18.sp, color = FirebaseColor)
         }
     }
-}
-
-@Preview
-@Composable
-fun InitialPagePreview()
-{
-    InitialPage()
 }

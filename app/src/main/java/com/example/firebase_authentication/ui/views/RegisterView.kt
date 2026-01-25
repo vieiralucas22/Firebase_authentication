@@ -41,6 +41,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.firebase_authentication.R
 import com.example.firebase_authentication.ui.theme.FirebaseColor
 import com.example.firebase_authentication.ui.theme.FirebaseColor2
@@ -49,7 +50,7 @@ import com.example.firebase_authentication.ui.theme.White
 
 @SuppressLint("RememberReturnType")
 @Composable
-fun RegisterScreen() {
+fun RegisterScreen(navController : NavController) {
 
     var fullName by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
@@ -160,10 +161,4 @@ fun RegisterScreen() {
         }
 
     }
-}
-
-@Preview
-@Composable
-fun RegisterScreenPreview() {
-    RegisterScreen()
 }
