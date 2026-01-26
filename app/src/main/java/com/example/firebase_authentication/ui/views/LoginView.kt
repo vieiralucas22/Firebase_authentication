@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.firebase_authentication.R
+import com.example.firebase_authentication.ui.Routes
 import com.example.firebase_authentication.ui.theme.FirebaseColor
 import com.example.firebase_authentication.ui.theme.FirebaseColor2
 import com.example.firebase_authentication.ui.theme.FirebaseColor3
@@ -46,9 +47,6 @@ import com.example.firebase_authentication.viewmodels.LoginViewModel
 @SuppressLint("RememberReturnType")
 @Composable
 fun LoginScreen(navController: NavController, viewModel: LoginViewModel) {
-
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -80,9 +78,9 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel) {
             modifier = Modifier.fillMaxWidth(), value = viewModel.mEmail, onValueChange = {
                 viewModel.mEmail = it
                 viewModel.mIsMissingEmail = false
-        }, label = {
-            Text(text = "Email")
-        },
+            }, label = {
+                Text(text = "Email")
+            },
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.Email,
@@ -100,7 +98,8 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel) {
                 errorContainerColor = White,
                 errorLeadingIconColor = FirebaseColor3,
             ),
-            isError = viewModel.mIsMissingEmail)
+            isError = viewModel.mIsMissingEmail
+        )
 
         Spacer(Modifier.height(8.dp))
 
@@ -138,7 +137,11 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel) {
         Spacer(Modifier.height(16.dp))
 
         Button(
-            onClick = {viewModel.login()}, modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.buttonColors(
+            onClick = {
+                viewModel.login()
+                navController.navigate(Routes.HomeView+"/"+viewModel.mEmail)
+            },
+            modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.buttonColors(
                 containerColor = FirebaseColor
             )
         ) {
