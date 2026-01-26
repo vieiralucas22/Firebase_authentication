@@ -1,13 +1,10 @@
 package com.example.firebase_authentication.ui.views
 
 import android.annotation.SuppressLint
-import android.graphics.drawable.Icon
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,7 +21,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -33,28 +29,24 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.firebase_authentication.R
 import com.example.firebase_authentication.ui.theme.FirebaseColor
 import com.example.firebase_authentication.ui.theme.FirebaseColor2
+import com.example.firebase_authentication.ui.theme.FirebaseColor3
 import com.example.firebase_authentication.ui.theme.Grey
 import com.example.firebase_authentication.ui.theme.White
+import com.example.firebase_authentication.viewmodels.RegisterViewModel
 
 @SuppressLint("RememberReturnType")
 @Composable
-fun RegisterScreen(navController : NavController) {
-
-    var fullName by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+fun RegisterScreen(navController: NavController, viewModel: RegisterViewModel) {
 
     Column(
         modifier = Modifier
@@ -83,8 +75,9 @@ fun RegisterScreen(navController : NavController) {
         Spacer(Modifier.height(30.dp))
 
         OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(), value = email, onValueChange = {
-                email = it
+            modifier = Modifier.fillMaxWidth(), value = viewModel.mFullName, onValueChange = {
+                viewModel.mFullName = it
+                viewModel.mIsMissingFullName = false
             }, label = {
                 Text(text = "Full name")
             },
@@ -99,12 +92,20 @@ fun RegisterScreen(navController : NavController) {
                 focusedContainerColor = White,
                 unfocusedContainerColor = White,
                 focusedLeadingIconColor = FirebaseColor2,
-                cursorColor = FirebaseColor2
-            ))
+                cursorColor = FirebaseColor2,
+                errorLabelColor = FirebaseColor3,
+                errorIndicatorColor = FirebaseColor3,
+                errorContainerColor = White,
+                errorLeadingIconColor = FirebaseColor3,
+            ),
+            isError = viewModel.mIsMissingFullName
+        )
 
         OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(), value = email, onValueChange = {
-                email = it
+            modifier = Modifier.fillMaxWidth(), value = viewModel.mEmail,
+            onValueChange = {
+                viewModel.mEmail = it
+                viewModel.mIsMissingEmail = false
             }, label = {
                 Text(text = "Email")
             },
@@ -119,16 +120,23 @@ fun RegisterScreen(navController : NavController) {
                 focusedContainerColor = White,
                 unfocusedContainerColor = White,
                 focusedLeadingIconColor = FirebaseColor2,
-                cursorColor = FirebaseColor2
-            ))
+                cursorColor = FirebaseColor2,
+                errorLabelColor = FirebaseColor3,
+                errorIndicatorColor = FirebaseColor3,
+                errorContainerColor = White,
+                errorLeadingIconColor = FirebaseColor3,
+            ),
+            isError = viewModel.mIsMissingEmail
+        )
 
         Spacer(Modifier.height(8.dp))
 
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
-            value = password,
+            value = viewModel.mPassword,
             onValueChange = {
-                password = it
+                viewModel.mPassword = it
+                viewModel.mIsMissingPassword = false
             },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             label = {
@@ -145,15 +153,20 @@ fun RegisterScreen(navController : NavController) {
                 focusedContainerColor = White,
                 unfocusedContainerColor = White,
                 focusedLeadingIconColor = FirebaseColor2,
-                cursorColor = FirebaseColor2
-            )
+                cursorColor = FirebaseColor2,
+                errorLabelColor = FirebaseColor3,
+                errorIndicatorColor = FirebaseColor3,
+                errorContainerColor = White,
+                errorLeadingIconColor = FirebaseColor3,
+            ),
+            isError = viewModel.mIsMissingPassword
 
         )
 
         Spacer(Modifier.height(16.dp))
 
         Button(
-            onClick = {}, modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.buttonColors(
+            onClick = { viewModel.createAccount() }, modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.buttonColors(
                 containerColor = FirebaseColor
             )
         ) {
