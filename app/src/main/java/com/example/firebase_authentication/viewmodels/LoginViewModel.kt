@@ -4,7 +4,10 @@ import android.app.Application
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.viewModelScope
 import com.example.firebase_authentication.enums.ErrorCode
+import com.example.firebase_authentication.services.AuthenticationService
+import kotlinx.coroutines.launch
 
 class LoginViewModel(application: Application) : BaseViewModel(application) {
 
@@ -14,8 +17,14 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
     var mIsMissingEmail by mutableStateOf(false)
     var mIsMissingPassword by mutableStateOf(false)
 
+    val mAuthenticationService : AuthenticationService = AuthenticationService()
+
     fun login() {
         if (!canLogin()) return
+
+        viewModelScope.launch {
+            mAuthenticationService.signInWithEmailAndPassword(mEmail, mPassword)
+        }
     }
 
     fun showIsMissingTextAlert(error: ErrorCode) {
