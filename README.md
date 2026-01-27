@@ -1,5 +1,24 @@
-# Firebase_authentication
-Android app criado para praticar Firebase Authentication. Possui telas de login e cadastro com e-mail e senha, validação básica de campos e tratamento de erros do Firebase. Projeto focado em aprendizado e simulação de um fluxo real de autenticação.
+# Firebase Authentication – Android App 🔐
+
+Android application developed to practice Firebase Authentication, simulating a real-world authentication flow with email and password login and registration.
+
+This project focuses on clean architecture, modern Android development practices, and proper state and error handling.
+
+📱 Features
+
+✅ Entry screen
+
+✅ User registration with email and password
+
+✅ Login with email and password
+
+✅ Basic input validation
+
+✅ Firebase error handling
+
+✅ User feedback messages
+
+# Screenshots 🖼️ 
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/f713a1f2-dbae-490c-bee8-9960db014102" width="220" />
@@ -8,3 +27,9 @@ Android app criado para praticar Firebase Authentication. Possui telas de login 
   <img src="https://github.com/user-attachments/assets/79175d2f-5660-414c-9d52-cef5d3eb9c06" width="220" />
 </p>
 
+# Tech Stack 🛠️
+- Kotlin
+- Jetpack Compose
+- Firebase Authentication
+- Android Jetpack
+- Coroutines
