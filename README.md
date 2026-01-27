@@ -18,6 +18,13 @@ This project focuses on clean architecture, modern Android development practices
 
 ✅ User feedback messages
 
+# Tech Stack 🛠️
+- Kotlin
+- Jetpack Compose
+- Firebase Authentication
+- Android Jetpack
+- Coroutines
+
 # Screenshots 🖼️ 
 
 <p align="center">
@@ -27,9 +34,6 @@ This project focuses on clean architecture, modern Android development practices
   <img src="https://github.com/user-attachments/assets/79175d2f-5660-414c-9d52-cef5d3eb9c06" width="220" />
 </p>
 
-# Tech Stack 🛠️
-- Kotlin
-- Jetpack Compose
-- Firebase Authentication
-- Android Jetpack
-- Coroutines
+
+
+
