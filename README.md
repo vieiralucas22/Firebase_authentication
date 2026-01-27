@@ -24,6 +24,7 @@ This project focuses on clean architecture, modern Android development practices
 - Firebase Authentication
 - Android Jetpack
 - Coroutines
+- MVVM
 
 # Screenshots 🖼️ 
 
