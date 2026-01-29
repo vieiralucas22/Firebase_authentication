@@ -42,10 +42,13 @@ class MainActivity : ComponentActivity() {
                     RegisterScreen(navController, registerViewModel)
                 }
 
-                composable (Routes.HomeView + "/{email}")
+                composable (Routes.HomeView + "/{email}/{isVerifiedEmail}/{uid}")
                 {
                     val email = it.arguments?.getString("email")
-                    HomeView(email)
+                    val isVerifiedEmail = it.arguments?.getBoolean("isVerifiedEmail")
+                    val uid = it.arguments?.getString("uid")
+
+                    HomeView(email, isVerifiedEmail, uid)
                 }
             })
         }

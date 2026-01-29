@@ -22,10 +22,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -36,7 +32,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.firebase_authentication.R
-import com.example.firebase_authentication.ui.Routes
 import com.example.firebase_authentication.ui.theme.FirebaseColor
 import com.example.firebase_authentication.ui.theme.FirebaseColor2
 import com.example.firebase_authentication.ui.theme.FirebaseColor3
@@ -138,8 +133,7 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel) {
 
         Button(
             onClick = {
-                viewModel.login()
-                navController.navigate(Routes.HomeView+"/"+viewModel.mEmail)
+                viewModel.login(navController)
             },
             modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.buttonColors(
                 containerColor = FirebaseColor

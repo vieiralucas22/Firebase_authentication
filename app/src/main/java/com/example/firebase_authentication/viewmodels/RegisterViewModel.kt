@@ -1,14 +1,17 @@
 package com.example.firebase_authentication.viewmodels
 
 import android.app.Application
+import android.widget.Toast
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.application
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.example.firebase_authentication.enums.ErrorCode
 import com.example.firebase_authentication.services.AuthenticationService
+import com.example.firebase_authentication.ui.Routes
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 class RegisterViewModel(application: Application) : BaseViewModel(application) {
 
@@ -22,11 +25,15 @@ class RegisterViewModel(application: Application) : BaseViewModel(application) {
 
     val mAuthenticationService : AuthenticationService = AuthenticationService()
 
-    fun createAccount() {
+    fun createAccount(navController: NavController) {
         if (!canCreateAccount()) return
 
         viewModelScope.launch {
-            mAuthenticationService.createUserWithEmailAndPassword(mEmail, mPassword)
+            mAuthenticationService.createUserWithEmailAndPassword(mEmail, mPassword).onSuccess {
+                navController.navigate(Routes.LoginView)
+            }.onFailure { exception ->
+                Toast.makeText(application, exception.message, Toast.LENGTH_LONG).show()
+            }
         }
     }
 

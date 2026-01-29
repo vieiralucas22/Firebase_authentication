@@ -23,10 +23,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -166,7 +162,7 @@ fun RegisterScreen(navController: NavController, viewModel: RegisterViewModel) {
         Spacer(Modifier.height(16.dp))
 
         Button(
-            onClick = { viewModel.createAccount() }, modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.buttonColors(
+            onClick = { viewModel.createAccount(navController) }, modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.buttonColors(
                 containerColor = FirebaseColor
             )
         ) {

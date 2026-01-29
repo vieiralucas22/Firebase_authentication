@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import com.example.firebase_authentication.ui.theme.White
 
 @Composable
-fun HomeView(email: String?)
+fun HomeView(email: String?, isVerifiedEmail: Boolean?, uid: String?)
 {
     Column(
         modifier = Modifier
@@ -21,6 +21,8 @@ fun HomeView(email: String?)
         verticalArrangement = Arrangement.Center,
     )
     {
-        Text(text = email.toString())
+        Text(text = "Email: " + email.toString())
+        Text(text = "IsVerifiedEmail: " + isVerifiedEmail.toString())
+        Text(text = "UID: " + uid.toString())
     }
 }
