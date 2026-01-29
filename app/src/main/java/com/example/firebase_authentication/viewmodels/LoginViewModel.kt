@@ -26,12 +26,17 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
     fun login(navController: NavController) {
         if (!canLogin()) return
 
+        mIsLoading = true
+
         viewModelScope.launch {
             mAuthenticationService.signInWithEmailAndPassword(mEmail, mPassword).onSuccess {
                 user ->
                 navController.navigate(Routes.HomeView+"/"+user.email+"/"+user.isVerifiedEmail+"/"+user.uid)
+
             }.onFailure { exception ->
                 Toast.makeText(application, exception.message, Toast.LENGTH_LONG).show()
+                mIsLoading = false
+
             }
         }
     }

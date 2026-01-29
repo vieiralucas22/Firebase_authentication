@@ -23,6 +23,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -33,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.firebase_authentication.R
+import com.example.firebase_authentication.ui.animation.LoadingAnimation
 import com.example.firebase_authentication.ui.theme.FirebaseColor
 import com.example.firebase_authentication.ui.theme.FirebaseColor2
 import com.example.firebase_authentication.ui.theme.FirebaseColor3
@@ -43,6 +45,12 @@ import com.example.firebase_authentication.viewmodels.RegisterViewModel
 @SuppressLint("RememberReturnType")
 @Composable
 fun RegisterScreen(navController: NavController, viewModel: RegisterViewModel) {
+
+    DisposableEffect(Unit) {
+        onDispose {
+            viewModel.mIsLoading = false
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -166,7 +174,10 @@ fun RegisterScreen(navController: NavController, viewModel: RegisterViewModel) {
                 containerColor = FirebaseColor
             )
         ) {
-            Text(text = "Create account")
+            if (viewModel.mIsLoading)
+                LoadingAnimation()
+            else
+                Text(text = "Login")
         }
 
     }

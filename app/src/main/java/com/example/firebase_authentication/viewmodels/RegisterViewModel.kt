@@ -28,10 +28,15 @@ class RegisterViewModel(application: Application) : BaseViewModel(application) {
     fun createAccount(navController: NavController) {
         if (!canCreateAccount()) return
 
+        mIsLoading = true
+
         viewModelScope.launch {
             mAuthenticationService.createUserWithEmailAndPassword(mEmail, mPassword).onSuccess {
+                Toast.makeText(application, "User created!", Toast.LENGTH_LONG).show()
                 navController.navigate(Routes.LoginView)
             }.onFailure { exception ->
+
+                mIsLoading = false
                 Toast.makeText(application, exception.message, Toast.LENGTH_LONG).show()
             }
         }
