@@ -11,6 +11,8 @@ composeBom = "2024.09.00"
 navigationCompose = "2.9.6"
 googleGmsGoogleServices = "4.4.4"
 firebaseAuth = "24.0.1"
+dagger-hilt = "2.57.1"
+ksp = "2.3.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -29,10 +31,14 @@ androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-te
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
+dagger-hilt = {module = "com.google.dagger:hilt-android", version.ref ="dagger-hilt"}
+hilt-compiler = {module = "com.google.dagger:hilt-android-compiler", version.ref ="dagger-hilt"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
+dagger-hilt = {id = "com.google.dagger.hilt.android", version.ref ="dagger-hilt" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
