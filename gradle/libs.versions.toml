@@ -12,7 +12,7 @@ navigationCompose = "2.9.6"
 googleGmsGoogleServices = "4.4.4"
 firebaseAuth = "24.0.1"
 dagger-hilt = "2.57.1"
-ksp = "2.3.0"
+ksp = "2.0.21-1.0.28"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }

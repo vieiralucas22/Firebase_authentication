@@ -9,11 +9,17 @@ import androidx.lifecycle.application
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.firebase_authentication.enums.ErrorCode
-import com.example.firebase_authentication.services.AuthenticationService
+import com.example.firebase_authentication.services.interfaces.IAuthenticationService
 import com.example.firebase_authentication.ui.Routes
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LoginViewModel(application: Application) : BaseViewModel(application) {
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    application: Application,
+    private val authenticationService: IAuthenticationService
+) : BaseViewModel(application) {
 
     var mEmail by mutableStateOf("")
     var mPassword by mutableStateOf("")
@@ -21,17 +27,14 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
     var mIsMissingEmail by mutableStateOf(false)
     var mIsMissingPassword by mutableStateOf(false)
 
-    val mAuthenticationService : AuthenticationService = AuthenticationService()
-
     fun login(navController: NavController) {
         if (!canLogin()) return
 
         mIsLoading = true
 
         viewModelScope.launch {
-            mAuthenticationService.signInWithEmailAndPassword(mEmail, mPassword).onSuccess {
-                user ->
-                navController.navigate(Routes.HomeView+"/"+user.email+"/"+user.isVerifiedEmail+"/"+user.uid)
+            authenticationService.signInWithEmailAndPassword(mEmail, mPassword).onSuccess { user ->
+                navController.navigate(Routes.HomeView + "/" + user.email + "/" + user.isVerifiedEmail + "/" + user.uid)
 
             }.onFailure { exception ->
                 Toast.makeText(application, exception.message, Toast.LENGTH_LONG).show()
@@ -42,16 +45,14 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
     }
 
     fun showIsMissingTextAlert(error: ErrorCode) {
-        when (error)
-        {
+        when (error) {
             ErrorCode.EmailIsMissing -> mIsMissingEmail = true
             ErrorCode.PasswordIsMissing -> mIsMissingPassword = true
             else -> {}
         }
     }
 
-    fun canLogin() : Boolean
-    {
+    fun canLogin(): Boolean {
         if (mEmail.isEmpty())
             showIsMissingTextAlert(ErrorCode.EmailIsMissing)
 

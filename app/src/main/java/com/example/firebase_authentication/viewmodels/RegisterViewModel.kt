@@ -9,11 +9,17 @@ import androidx.lifecycle.application
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.firebase_authentication.enums.ErrorCode
-import com.example.firebase_authentication.services.AuthenticationService
+import com.example.firebase_authentication.services.interfaces.IAuthenticationService
 import com.example.firebase_authentication.ui.Routes
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RegisterViewModel(application: Application) : BaseViewModel(application) {
+@HiltViewModel
+class RegisterViewModel @Inject constructor(
+    application: Application,
+    private val authenticationService: IAuthenticationService
+) : BaseViewModel(application) {
 
     var mEmail by mutableStateOf("")
     var mPassword by mutableStateOf("")
@@ -23,15 +29,13 @@ class RegisterViewModel(application: Application) : BaseViewModel(application) {
     var mIsMissingPassword by mutableStateOf(false)
     var mIsMissingFullName by mutableStateOf(false)
 
-    val mAuthenticationService : AuthenticationService = AuthenticationService()
-
     fun createAccount(navController: NavController) {
         if (!canCreateAccount()) return
 
         mIsLoading = true
 
         viewModelScope.launch {
-            mAuthenticationService.createUserWithEmailAndPassword(mEmail, mPassword).onSuccess {
+            authenticationService.createUserWithEmailAndPassword(mEmail, mPassword).onSuccess {
                 Toast.makeText(application, "User created!", Toast.LENGTH_LONG).show()
                 navController.navigate(Routes.LoginView)
             }.onFailure { exception ->
@@ -43,16 +47,14 @@ class RegisterViewModel(application: Application) : BaseViewModel(application) {
     }
 
     fun showIsMissingTextAlert(error: ErrorCode) {
-        when (error)
-        {
+        when (error) {
             ErrorCode.EmailIsMissing -> mIsMissingEmail = true
             ErrorCode.PasswordIsMissing -> mIsMissingPassword = true
             ErrorCode.FullNameIsMissing -> mIsMissingFullName = true
         }
     }
 
-    fun canCreateAccount() : Boolean
-    {
+    fun canCreateAccount(): Boolean {
         if (mEmail.isEmpty())
             showIsMissingTextAlert(ErrorCode.EmailIsMissing)
 

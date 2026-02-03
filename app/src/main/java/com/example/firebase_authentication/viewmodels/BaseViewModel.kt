@@ -6,6 +6,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 
-open class BaseViewModel(application: Application) : AndroidViewModel(application) {
+abstract class BaseViewModel(application: Application) : AndroidViewModel(application) {
     var mIsLoading by mutableStateOf(false)
 }

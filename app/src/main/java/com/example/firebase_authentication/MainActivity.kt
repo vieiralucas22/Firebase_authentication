@@ -15,7 +15,9 @@ import com.example.firebase_authentication.ui.views.LoginScreen
 import com.example.firebase_authentication.ui.views.RegisterScreen
 import com.example.firebase_authentication.viewmodels.LoginViewModel
 import com.example.firebase_authentication.viewmodels.RegisterViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
