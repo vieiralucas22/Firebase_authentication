@@ -47,6 +47,13 @@ android {
 }
 
 dependencies {
+
+    testImplementation(libs.junit.jupiter)
+
+    tasks.withType<Test> {
+        useJUnitPlatform()
+    }
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -59,6 +66,9 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.dagger.hilt)
     ksp(libs.hilt.compiler)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
+    androidTestImplementation(libs.mockito.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

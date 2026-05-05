@@ -9,7 +9,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface ServicesModule {
+interface AuthenticatorModule {
 
     @Binds
     fun bindAuthenticatorService(impl: AuthenticationServiceImpl) : IAuthenticationService

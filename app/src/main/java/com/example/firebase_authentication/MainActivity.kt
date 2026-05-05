@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -24,8 +25,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val navController = rememberNavController()
-            val loginViewModel = ViewModelProvider.create(this)[LoginViewModel::class.java]
-            val registerViewModel = ViewModelProvider.create(this)[RegisterViewModel::class.java]
+            val loginViewModel : LoginViewModel by viewModels()
+            val registerViewModel : RegisterViewModel by viewModels()
 
             NavHost(navController = navController, startDestination = Routes.InitialView, builder = {
 
